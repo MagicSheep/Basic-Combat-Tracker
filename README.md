@@ -1,8 +1,11 @@
 # Basic Combat Tracker
  Small GUI application to help me remember various things in D&D combat.
+This was a little for fun project to work on, and it's my first GUI application in Java. \o/
 
-Currently WIP still, but I wanna put this somewhere before finding a way to lose it forever.
-At the moment I'm playing with a different method to display everything in the Frame, so much of the code is gonna get changed in a while.
+Just to throw a lil bit of context into this, incase I ever end up forgetting or someone comes across this randomly:
+The campaign is using the FFD20 module and my character is a Summoner with the Scholar sub-job. Nebby, or Nebula, is my precious Carbuncle summon
+
 
 Here is a preview of what it looks like:
-![img](https://i.imgur.com/EHLY8g0.png)
+
+![img](https://i.imgur.com/hBPoMJ9.png)
