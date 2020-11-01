@@ -12,10 +12,11 @@ import java.awt.Color;
 //This dumpsterfire of a program was made because remembering things for D&D combat is just too hard. It tracks various things like HP, MP, and AC, along with the current "Arts" which are important
 //for spellcasting and such. It also keeps track of the status of my summon, Nebby.
 
-/* 
- * Descriotion of all used variables:
+/*
+ * Description of all used variables:
  * JLabel CurrentHP/CurrentMP: Display text next to the HP/MP Spinner.
  * JSpinner HPSpinner/MPSpinner: These spinners hold onto whatever number they are given. Both spinners have no logic. (at least for the number they hold.)
+ * JSpinner NebbyHP: Holds onto my summon's HP. Should only be active/editable when the NebbyBox is checked.
  * JLabel ACLabel: Puts the text "AC:" into the frame. Used next to the ACSpinner.
  * JSpinner ACSpinner: Holds the number for my current AC. The MageArmor checkbox should be able to add and remove 4 from it.
  * JCheckbox MageArmor: This checkbox takes whatever number ACSpinner has and adds 4 if checked and removes 4, restoring the original value when unchecked.
@@ -35,7 +36,7 @@ public class CombatTracker {
 	private JButton DarkArtsButton;
 	private JButton LightArtsButton;
 	
-	//Begin CombatTracker constructor
+	//Begin CombatTracker thingy I forget the name of
 	public CombatTracker() {
 		
 		//Declarations
@@ -44,18 +45,23 @@ public class CombatTracker {
 		JLabel CurrentHP = new JLabel("HP:");
 		JLabel CurrentMP = new JLabel("MP:");
 		JSpinner HPSpinner = new JSpinner();
+		JSpinner NebbyHP = new JSpinner();
 		JSpinner MPSpinner = new JSpinner();
 		JLabel ACLabel = new JLabel("AC:");
 		ACSpinner = new JSpinner();
 		JCheckBox MageArmor = new JCheckBox("Mage Armor");
-		JCheckBox NebbyBox = new JCheckBox("Is Nebby alive?");
+		JCheckBox NebbyBox = new JCheckBox("Is Nebby active?");
 		ActiveArts = new JLabel("No Arts active.");
 		DarkArtsButton = new JButton("Dark Arts");
 		LightArtsButton = new JButton("Light Arts");
 		
-		//Giving ACSpinner a value (for now) to prevent exceptions.
+		//Set a few values to make things go faster
+		HPSpinner.setValue(16);
+		MPSpinner.setValue(10);
 		ACSpinner.setValue(12);
-		
+		NebbyHP.setValue(23);
+		NebbyHP.setEnabled(false);
+
 		//Listeners
 		
 		DarkArtsButton.addActionListener(new ActionListener() {
@@ -89,17 +95,30 @@ public class CombatTracker {
 				}
 			}
 		});//end MageArmor action listener
+		
+		//Nebbybox action listener
+		NebbyBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (NebbyBox.isSelected()) {
+					NebbyHP.setEnabled(true);
+				}
+				else {
+					NebbyHP.setEnabled(false);
+				}
+			}//end actionPerformed
+		});
 
 		
 		//Set the size of stuff (x, y, width, height)
 		CurrentHP.setBounds(110, 15, 20, 20);
 		CurrentMP.setBounds(110, 40, 25, 20);
 		HPSpinner.setBounds(135, 15, 50, 20);
+		NebbyHP.setBounds(190, 15, 50, 20);
 		MPSpinner.setBounds(135, 40, 50, 20);
 		ACLabel.setBounds(110, 65, 25, 20);
 		ACSpinner.setBounds(135, 65, 50, 20);
 		MageArmor.setBounds(110, 90, 100, 25);
-		NebbyBox.setBounds(105, 115, 120, 25);
+		NebbyBox.setBounds(110, 115, 150, 25);
 		ActiveArts.setBounds(115, 145, 120, 25);
 		DarkArtsButton.setBounds(100, 165, 120, 25);
 		LightArtsButton.setBounds(100, 195, 120, 25);
@@ -120,6 +139,7 @@ public class CombatTracker {
 		frame.add(CurrentHP);
 		frame.add(CurrentMP);
 		frame.add(HPSpinner);
+		frame.add(NebbyHP);
 		frame.add(MPSpinner);
 		frame.add(ACLabel);
 		frame.add(ACSpinner);
@@ -135,8 +155,9 @@ public class CombatTracker {
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Basic Combat Tracker");
+		frame.setAlwaysOnTop(true);//This is annoying but I'll lose the window otherwise
 		frame.setVisible(true);
-		
+
 	}//end CombatTracker
 
 	public static void main(String[] args) {

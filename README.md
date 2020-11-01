@@ -8,4 +8,4 @@ The campaign is using the FFD20 module and my character is a Summoner with the S
 
 Here is a preview of what it looks like:
 
-![img](https://i.imgur.com/hBPoMJ9.png)
+![img](https://i.imgur.com/KuUJ0AB.png)
