@@ -28,6 +28,8 @@ import java.awt.Color;
  * JButton LightArtsButton: Udpates the label ActiveArts to say "Light Arts active."
  * Int AC: (Used in MageAromr's action listener) is the value of whatever is in ACSpinner.
  * Int ACPlus: (Used in MageArmor's action listener) is uses to add or subtract 4 from AC.
+ * JLabel ArcaneLabel: Holds the text "Arcane Res:"
+ * JSpinner ArcaneSpinner: Editable spinner for scholar's arcane resivoir resource.
  */
 
 public class CombatTracker {
@@ -51,6 +53,8 @@ public class CombatTracker {
 		JSpinner MPSpinner = new JSpinner();
 		JLabel ACLabel = new JLabel("AC:");
 		ACSpinner = new JSpinner();
+		JLabel ArcaneLabel = new JLabel("Arcane Res:");
+		JSpinner ArcaneSpinner = new JSpinner();
 		JCheckBox MageArmor = new JCheckBox("Mage Armor");
 		JCheckBox NebbyBox = new JCheckBox("Is Nebby active?");
 		ActiveArts = new JLabel("No Arts active.");
@@ -58,14 +62,14 @@ public class CombatTracker {
 		LightArtsButton = new JButton("Light Arts");
 		
 		//Set a few values to make things go faster
-		HPSpinner.setValue(16);
-		MPSpinner.setValue(10);
-		ACSpinner.setValue(12);
-		NebbyHP.setValue(23);
+		HPSpinner.setValue(21);
+		MPSpinner.setValue(12);
+		ACSpinner.setValue(13);
+		NebbyHP.setValue(33);
 		NebbyHP.setEnabled(false);
+		ArcaneSpinner.setValue(5);
 
 		//Listeners
-		
 		DarkArtsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ActiveArts.setText("Dark Arts active.");
@@ -124,6 +128,8 @@ public class CombatTracker {
 		ActiveArts.setBounds(115, 145, 120, 25);
 		DarkArtsButton.setBounds(100, 165, 120, 25);
 		LightArtsButton.setBounds(100, 195, 120, 25);
+		ArcaneLabel.setBounds(125, 225, 150, 20);
+		ArcaneSpinner.setBounds(135, 250, 50, 20);
 		
 		//Adjust the colors to work with the frame's black background
 		CurrentHP.setForeground(Color.WHITE);
@@ -136,6 +142,7 @@ public class CombatTracker {
 		ActiveArts.setForeground(Color.WHITE);
 		DarkArtsButton.setBackground(Color.LIGHT_GRAY);
 		LightArtsButton.setBackground(Color.LIGHT_GRAY);
+		ArcaneLabel.setForeground(Color.WHITE);
 		
 		//Add the things to the frame
 		frame.add(CurrentHP);
@@ -150,9 +157,11 @@ public class CombatTracker {
 		frame.add(ActiveArts);
 		frame.add(DarkArtsButton);
 		frame.add(LightArtsButton);
+		frame.add(ArcaneLabel);
+		frame.add(ArcaneSpinner);
 		
 		//Fancy frame stuff
-		frame.setSize(335, 270); //width, height
+		frame.setSize(335, 325); //width, height
 		frame.setLayout(null); 
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -168,5 +177,7 @@ public class CombatTracker {
 		new CombatTracker();
 
 	}//end main
-
+	
+//----------------------------------------------------------------------------------------------------------------------------------------------
+	
 }//end class
