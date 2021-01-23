@@ -1,11 +1,8 @@
 package com.magicsheep.combattracker;
 
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -65,7 +62,12 @@ public class CombatTracker {
 		ActiveArts = new JLabel("No Arts active.");
 		DarkArtsButton = new JButton("Dark Arts");
 		LightArtsButton = new JButton("Light Arts");
+		JCheckBox BloodPactBox = new JCheckBox("Blood Pact");
+		JCheckBox RageBox = new JCheckBox("Rage");
+		JCheckBox WardBox = new JCheckBox("Ward");
 		
+		//This is for the createMenu() method. Having all the stuff for this in one class file was a bit much.
+		menuSetup menu = new menuSetup();
 		
 		//Set a few values to make things go faster
 		HPSpinner.setValue(21);
@@ -74,6 +76,8 @@ public class CombatTracker {
 		NebbyHP.setValue(33);
 		NebbyHP.setEnabled(false);
 		ArcaneSpinner.setValue(5);
+		RageBox.setEnabled(false);
+		WardBox.setEnabled(false);
 
 		
 		//Listeners
@@ -121,25 +125,66 @@ public class CombatTracker {
 				}
 			}//end actionPerformed
 		});
+		
+		//BloodPactBox action listener
+		BloodPactBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (BloodPactBox.isSelected()) {
+					RageBox.setEnabled(true);
+					WardBox.setEnabled(true);
+				}
+				else {
+					RageBox.setEnabled(false);
+					WardBox.setEnabled(false);
+				}
+			}//end actionPerformed
+		});
+		
+		//RageBox action listener
+		RageBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (RageBox.isSelected()) {
+					WardBox.setEnabled(false);
+				}
+				else {
+					WardBox.setEnabled(true);
+				}
+			}//end actionPerformed
+		});
+		
+		//WardBox action listener
+		WardBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (WardBox.isSelected()) {
+					RageBox.setEnabled(false);
+				}
+				else {
+					RageBox.setEnabled(true);
+				}
+			}//end actionPerformed
+		});
 
 		
 		//Set the size of stuff (x, y, width, height)
-		CurrentHP.setBounds(20, 35, 20, 20);
-		CurrentMP.setBounds(20, 60, 25, 20);
-		HPSpinner.setBounds(100, 35, 50, 20);
-		NebbyHP.setBounds(155, 35, 50, 20);
-		MPSpinner.setBounds(100, 60, 50, 20);
-		ACLabel.setBounds(20, 85, 25, 20);
-		ACSpinner.setBounds(100, 85, 50, 20);
-		ArcaneLabel.setBounds(20, 110, 150, 20);
-		ArcaneSpinner.setBounds(100, 110, 50, 20);
+		CurrentHP.setBounds(20, 11, 20, 20);
+		CurrentMP.setBounds(20, 36, 25, 20);
+		HPSpinner.setBounds(100, 11, 50, 20);
+		NebbyHP.setBounds(155, 11, 50, 20);
+		MPSpinner.setBounds(100, 36, 50, 20);
+		ACLabel.setBounds(20, 61, 25, 20);
+		ACSpinner.setBounds(100, 61, 50, 20);
+		ArcaneLabel.setBounds(20, 86, 150, 20);
+		ArcaneSpinner.setBounds(100, 86, 50, 20);
 		
-		NebbyBox.setBounds(160, 60, 150, 25);
-		MageArmor.setBounds(160, 85, 100, 25);
+		NebbyBox.setBounds(160, 36, 150, 25);
+		MageArmor.setBounds(160, 61, 100, 25);
+		BloodPactBox.setBounds(160, 86, 100, 25);
+		RageBox.setBounds(160, 110, 55, 25);
+		WardBox.setBounds(212, 110, 65, 25);
 		
-		ActiveArts.setBounds(35, 215, 120, 25);
-		DarkArtsButton.setBounds(20, 235, 120, 25);
-		LightArtsButton.setBounds(20, 265, 120, 25);
+		ActiveArts.setBounds(30, 184, 120, 25);
+		DarkArtsButton.setBounds(20, 207, 120, 25);
+		LightArtsButton.setBounds(20, 238, 120, 25);
 
 		
 		//Adjust the colors to work with the frame's black background
@@ -152,31 +197,40 @@ public class CombatTracker {
 		NebbyBox.setBackground(Color.BLACK);
 		ActiveArts.setForeground(Color.WHITE);
 		ArcaneLabel.setForeground(Color.WHITE);
+		BloodPactBox.setForeground(Color.WHITE);
+		BloodPactBox.setBackground(Color.BLACK);
+		RageBox.setForeground(Color.WHITE);
+		RageBox.setBackground(Color.BLACK);
+		WardBox.setForeground(Color.WHITE);
+		WardBox.setBackground(Color.BLACK);
 		
 		//Create and add the menubar
-		menuSetup();
+		menu.createMenu(frame); //Uses menuSetup.java
 		
 		
 		//Add the things to the frame
-		frame.add(CurrentHP);
-		frame.add(CurrentMP);
-		frame.add(HPSpinner);
-		frame.add(NebbyHP);
-		frame.add(MPSpinner);
-		frame.add(ACLabel);
-		frame.add(ACSpinner);
-		frame.add(MageArmor);
-		frame.add(NebbyBox);
-		frame.add(ActiveArts);
-		frame.add(DarkArtsButton);
-		frame.add(LightArtsButton);
-		frame.add(ArcaneLabel);
-		frame.add(ArcaneSpinner);
+		frame.getContentPane().add(CurrentHP);
+		frame.getContentPane().add(CurrentMP);
+		frame.getContentPane().add(HPSpinner);
+		frame.getContentPane().add(NebbyHP);
+		frame.getContentPane().add(MPSpinner);
+		frame.getContentPane().add(ACLabel);
+		frame.getContentPane().add(ACSpinner);
+		frame.getContentPane().add(MageArmor);
+		frame.getContentPane().add(NebbyBox);
+		frame.getContentPane().add(ActiveArts);
+		frame.getContentPane().add(DarkArtsButton);
+		frame.getContentPane().add(LightArtsButton);
+		frame.getContentPane().add(ArcaneLabel);
+		frame.getContentPane().add(ArcaneSpinner);
+		frame.getContentPane().add(BloodPactBox);
+		frame.getContentPane().add(RageBox);
+		frame.getContentPane().add(WardBox);
 		
 		
 		//Fancy frame stuff
 		frame.setSize(335, 335); //width, height
-		frame.setLayout(null); 
+		frame.getContentPane().setLayout(null); 
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Basic Combat Tracker");
@@ -192,66 +246,4 @@ public class CombatTracker {
 		new CombatTracker();
 
 	}//end main
-	
-//----------------------------------------------------------------------------------------------------------------------------------------------
-	
-	public void menuSetup() {
-		
-		//Menubar Nonsense
-		JMenuBar menubar = new JMenuBar();
-		frame.setJMenuBar(menubar);
-		
-		//Define specific menues
-		JMenu nebbyMenu = new JMenu("Nebula");
-		JMenu summonerMenu = new JMenu("Summoner");
-		JMenu scholarMenu = new JMenu("Scholar");
-		JMenu limitMenu = new JMenu("Limit Breaks");
-		
-		//Add menues to the bar
-		menubar.add(nebbyMenu);
-		menubar.add(summonerMenu);
-		menubar.add(scholarMenu);
-		menubar.add(limitMenu);
-		
-		//Create items for the menues
-		JMenuItem nebbyAbilities = new JMenuItem("Abilities");
-		JMenuItem nebbySkills = new JMenuItem("Skills");
-		
-		//Summoner
-		JMenuItem smnjobActions = new JMenuItem("Summoner Job Actions");
-		
-		//Scholar
-		JMenuItem schjobActions = new JMenuItem("Scholar Job Actions");
-		
-		//Limit Breaks
-		JMenuItem smnLB = new JMenuItem("Summoner Limit Breaks");
-		JMenuItem schLB = new JMenuItem("Scholar Limit Breaks");
-		JMenuItem whmLB = new JMenuItem("White Mage Limit Breaks");
-		JMenuItem blmLB = new JMenuItem("Black Mage Limit Breaks");
-		
-		//Add items to the menues
-		nebbyMenu.add(nebbyAbilities);
-		nebbyMenu.add(nebbySkills);
-		
-		summonerMenu.add(smnjobActions);
-		
-		scholarMenu.add(schjobActions);
-		
-		limitMenu.add(smnLB);
-		limitMenu.add(schLB);
-		limitMenu.add(whmLB);
-		limitMenu.add(blmLB);
-		
-		//Listeners
-		nebbyAbilities.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Hey it works! o:");
-			}
-		});//end nebbyAbilities action listener
-		
-		
-	}//End menuSetup
-	
-//----------------------------------------------------------------------------------------------------------------------------------------------
-	
 }//end class
