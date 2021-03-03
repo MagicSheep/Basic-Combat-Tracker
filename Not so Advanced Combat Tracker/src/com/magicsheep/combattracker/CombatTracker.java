@@ -4,10 +4,12 @@ package com.magicsheep.combattracker;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.awt.Color;
 
 //Coded by Brandon Black (MagicSheep)
@@ -30,7 +32,8 @@ import java.awt.Color;
  * Int AC: (Used in MageAromr's action listener) is the value of whatever is in ACSpinner.
  * Int ACPlus: (Used in MageArmor's action listener) is uses to add or subtract 4 from AC.
  * JLabel ArcaneLabel: Holds the text "Arcane Res:"
- * JSpinner ArcaneSpinner: Editable spinner for scholar's arcane resivoir resource.
+ * JSpinner ArcaneSpinner: Editable spinner for scholar's arcane reservoir resource.
+ * JSpinner ShiftBox: Contains the text "Shift Used in Combat"
  */
 
 public class CombatTracker {
@@ -41,7 +44,7 @@ public class CombatTracker {
 	private JButton DarkArtsButton;
 	private JButton LightArtsButton;
 	
-	//Begin CombatTracker thingy I forget the name of
+	//Begin CombatTracker constructor
 	public CombatTracker() {
 		
 		
@@ -65,17 +68,18 @@ public class CombatTracker {
 		JCheckBox BloodPactBox = new JCheckBox("Blood Pact");
 		JCheckBox RageBox = new JCheckBox("Rage");
 		JCheckBox WardBox = new JCheckBox("Ward");
+		JCheckBox ShiftBox = new JCheckBox("Shift Used in Combat");
 		
 		//This is for the createMenu() method. Having all the stuff for this in one class file was a bit much.
 		menuSetup menu = new menuSetup();
 		
-		//Set a few values to make things go faster
+		//Set a few values to make life easier
 		HPSpinner.setValue(21);
 		MPSpinner.setValue(12);
 		ACSpinner.setValue(13);
 		NebbyHP.setValue(33);
 		NebbyHP.setEnabled(false);
-		ArcaneSpinner.setValue(5);
+		ArcaneSpinner.setValue(4);
 		RageBox.setEnabled(false);
 		WardBox.setEnabled(false);
 
@@ -181,6 +185,7 @@ public class CombatTracker {
 		BloodPactBox.setBounds(160, 86, 100, 25);
 		RageBox.setBounds(160, 110, 55, 25);
 		WardBox.setBounds(212, 110, 65, 25);
+		ShiftBox.setBounds(160, 135, 150, 25);
 		
 		ActiveArts.setBounds(30, 184, 120, 25);
 		DarkArtsButton.setBounds(20, 207, 120, 25);
@@ -203,9 +208,17 @@ public class CombatTracker {
 		RageBox.setBackground(Color.BLACK);
 		WardBox.setForeground(Color.WHITE);
 		WardBox.setBackground(Color.BLACK);
+		ShiftBox.setBackground(Color.BLACK);
+		ShiftBox.setForeground(Color.WHITE);
 		
 		//Create and add the menubar
 		menu.createMenu(frame); //Uses menuSetup.java
+		
+		
+		//Set the frame's icon (Thanks to Joop Eggen @ StackOverflow)
+		URL iconURL = getClass().getResource("/com/magicsheep/combattracker/nebby.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		frame.setIconImage(icon.getImage());
 		
 		
 		//Add the things to the frame
@@ -226,6 +239,7 @@ public class CombatTracker {
 		frame.getContentPane().add(BloodPactBox);
 		frame.getContentPane().add(RageBox);
 		frame.getContentPane().add(WardBox);
+		frame.getContentPane().add(ShiftBox);
 		
 		
 		//Fancy frame stuff
@@ -234,7 +248,7 @@ public class CombatTracker {
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Basic Combat Tracker");
-		frame.setAlwaysOnTop(true);//This is annoying but I'll lose the window otherwise
+		frame.setAlwaysOnTop(true); //This is annoying but I'll lose the window otherwise
 		frame.setVisible(true);
 
 	}//end CombatTracker
